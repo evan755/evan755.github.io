@@ -9,15 +9,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v5
+
       - uses: actions/setup-python@v6
         with:
           python-version: 3.13
-      - run: pip3 install -r requirements.txt
-      - run: mkdocs build
 
-      - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v4
+      - name: Cache Dependencies
+        id: mkdocs-material
+        uses: actions/cache@v4
         with:
-          path: site
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs-material
+
+#      - name: Upload to GitHub Pages
+#        uses: actions/upload-pages-artifact@v4
+#        with:
+#          path: site
+
+
+
