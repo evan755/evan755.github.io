@@ -3,3 +3,6 @@ site_url: https://wupeize.com
 
 theme:
   name: material
+
+plugins:
+  - offline
