@@ -26,10 +26,11 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install Dependencies
+        if: steps.mkdocs-material.outputs.cache-hit != 'true'
         run: |
           python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt
-        if: steps.mkdocs-material.outputs.cache-hit != 'true'
+
 
 #      - name: Upload to GitHub Pages
 #        uses: actions/upload-pages-artifact@v4
