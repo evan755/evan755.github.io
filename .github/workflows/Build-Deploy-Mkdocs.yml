@@ -13,26 +13,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v5
 
-      - name: Debug
-        run: |
-          python --version
-          pip --version
-#      - uses: actions/setup-python@v6
-#        with:
-#          python-version: 3.13
-#
-#      - uses: actions/cache@v4
-#        with:
-#          path: ~/.cache/pip
-#          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-pip-
-#
-#      - name: Install Dependencies
-#        if: steps.mkdocs-material.outputs.cache-hit != 'true'
-#        run: |
-#          python3 -m pip install --upgrade pip
-#          pip3 install -r requirements.txt
+      - uses: actions/cache@v4
+        id: mkdocs-material
+        with:
+           path: ~/.cache/pip
+           key: pip-${{ hashFiles('requirements.txt') }}
+           restore-keys: pip-
+
+      - name: Install Dependencies
+        if: steps.mkdocs-material.outputs.cache-hit != 'true'
+        run: pip3 install -r requirements.txt
 #
 #      - name: Build mkdocs
 #        run: |
