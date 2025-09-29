@@ -7,3 +7,8 @@ theme:
 plugins:
   - offline
   - search
+
+extra:
+  generator: false
+
+copyright: COPYRIGHT &copy; 2016-2025 WUPEIZE.COM
