@@ -5,8 +5,13 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
-  Build-Mkdocs:
+  Build:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,19 +25,27 @@ jobs:
            key: pip-${{ hashFiles('requirements.txt') }}
            restore-keys: pip-
 
-      - name: Install Dependencies
-        if: steps.mkdocs-material.outputs.cache-hit != 'true'
+      - name: Install dependencies
         run: |
-          pip3 install -r requirements.txt
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Build Mkdocs Material
-        run: |
-          mkdocs build
+      - name: Build with MkDocs
+        run: mkdocs build --strict
 
-      - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v4
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: site/
 
-
+  Deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
