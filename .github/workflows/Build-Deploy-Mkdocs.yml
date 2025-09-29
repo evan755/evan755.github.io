@@ -22,16 +22,14 @@ jobs:
 
       - name: Install Dependencies
         if: steps.mkdocs-material.outputs.cache-hit != 'true'
-        run: pip3 install -r requirements.txt
-#
-#      - name: Build mkdocs
-#        run: |
-#          mkdocs build
-#          tree -f ./
-#      - name: Upload to GitHub Pages
-#        uses: actions/upload-pages-artifact@v4
-#        with:
-#          path: site
+        run: |
+          pip3 install -r requirements.txt
+          mkdocs build
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
 
 
 
