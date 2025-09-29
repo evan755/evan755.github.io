@@ -31,7 +31,10 @@ jobs:
           python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt
 
-
+      - name: Build mkdocs
+        run: |
+          mkdocs build 
+          tree -f ./
 #      - name: Upload to GitHub Pages
 #        uses: actions/upload-pages-artifact@v4
 #        with:
