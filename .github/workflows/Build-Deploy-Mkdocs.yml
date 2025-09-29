@@ -1,4 +1,4 @@
-name: Build GitHub Pages
+name: Build Deploy GitHub Pages
 on:
   push:
     branches:
@@ -14,5 +14,4 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: 3.13
-      - run: pip3 --version
-      - run: python --version
+      - run: pip3 install -r requirements.txt
