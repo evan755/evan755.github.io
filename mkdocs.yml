@@ -1,5 +1,7 @@
 site_name: 吴培泽的个人博客
 site_url: https://wupeize.com
+site_author: 吴培泽
+site_description: 吴培泽的个人博客
 
 theme:
   name: material
